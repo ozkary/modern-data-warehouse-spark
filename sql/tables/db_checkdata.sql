@@ -15,11 +15,13 @@ GO
 SELECT *  FROM [dm].[dim_date]
 GO
 
-SELECT *  FROM [dm].[dim_location]
+
+SELECT top 100 *  FROM [dm].[dim_device]
 GO
 
-SELECT *  FROM [dm].[dim_device]
+SELECT top 100 *  FROM [dm].[dim_location]
 GO
+
 
 SELECT top 100 *  FROM  [dm].[fact_measure]
 GO
