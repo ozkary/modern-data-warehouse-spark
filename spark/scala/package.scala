@@ -1,67 +1,79 @@
 
 import java.util.Properties
-package com.ozkary.telemetry{
 
-case class DeviceIoTData (
-    battery_level: Long,
-    c02_level: Long,
-    cca2: String,
-    cca3: String,
-    cn: String,
-    device_id: Long,
-    device_name: String,
-    humidity: Long,
-    ip: String,
-    latitude: Double,
-    longitude: Double,
-    scale: String,
-    temp: Long,
-    timestamp: Long
-)
+package com{
+    package ozkary{
 
-case class RoboIoTDataSmall (  
-    location: String,
-    id: Long,
-    name: String,
-    humidity: Long,      
-    temperature: Long,
-    sound: Long,
-    date: java.sql.Timestamp
-)
+        package telemetry{
 
-case class dim_date(      
-    date_id: Long,
-    date: java.sql.Date,
-    created : java.sql.Timestamp
-)
+        //json models
+        case class DeviceIoTData (
+            battery_level: Long,
+            c02_level: Long,
+            cca2: String,
+            cca3: String,
+            cn: String,
+            device_id: Long,
+            device_name: String,
+            humidity: Long,
+            ip: String,
+            latitude: Double,
+            longitude: Double,
+            scale: String,
+            temp: Long,
+            timestamp: Long
+        )
 
-case class dim_location(      
-    location_id: Long,
-    location_name: String,     
-    created: java.sql.Timestamp
-)
+        case class RoboIoTDataSmall (  
+            location: String,
+            id: Long,
+            name: String,
+            humidity: Long,      
+            temperature: Long,
+            sound: Long,
+            date: java.sql.Timestamp
+        )
 
-case class dim_device(      
-    device_id: Long,
-    device_name: String,     
-    created: java.sql.Timestamp
-)
+        //table models
+        case class dim_date(      
+            date_id: Long,
+            date: java.sql.Date,
+            created : java.sql.Timestamp
+        )
 
-case class fact_measure(      
-    measure_id: Long,
-    device_id: Long,   
-    date_id: Long,  
-    location_id: Long,    
-    ip: String,
-    measure_date: java.sql.Timestamp,
-    created: java.sql.Timestamp
-)
+        case class dim_location(      
+            location_id: Long,
+            location_name: String,     
+            created: java.sql.Timestamp
+        )
 
-case class fact_measurement(         
-    measure_id: Long,
-    name: String,   
-    value : Long       
-)
+        case class dim_device(      
+            device_id: Long,
+            device_name: String,     
+            created: java.sql.Timestamp
+        )
 
+        case class fact_measure(      
+            measure_id: Long,
+            device_id: Long,   
+            date_id: Long,  
+            location_id: Long,    
+            ip: String,
+            measure_date: java.sql.Timestamp,
+            created: java.sql.Timestamp
+        )
 
-}
+        case class fact_measurement(         
+            measure_id: Long,
+            name: String,   
+            value : Long       
+        )
+
+        object configuration{
+            var path:String = "/mnt/c/repos/dw-spark/data/";
+            var auth:String = "testing";
+        }
+
+        }  //end telemetry
+    } //ozkary
+} //com

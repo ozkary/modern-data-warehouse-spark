@@ -10,22 +10,39 @@ ozkary.com
 
 */
 
-val path = "/mnt/c/repos/dw-spark/scala/"
+import org.apache.spark.sql.SparkSession
 
-//data lake tables
-spark.sql("truncate table telemetry.dl_device")
+// checks if the table exists
+// use the fullname space databasename.tablename
+//
+def truncateTable(table: String, spark: SparkSession) : Boolean = {
 
-spark.sql("truncate table telemetry.dl_bot")
+   var exists = spark.catalog.tableExists(table)
+
+   if (exists){
+        spark.sql(s"truncate table ${table}")        
+    } else
+    {
+        println(s"${table} not found")    
+    } 
+   
+    true
+}
+
+//datalake tables
+truncateTable("telemetry.dl_device", spark)
+
+truncateTable("telemetry.dl_bot", spark)
 
 //fact tables
-spark.sql("truncate table telemetry.fact_measurement")
-
-spark.sql("truncate table telemetry.fact_measure")
-
+truncateTable("telemetry.fact_measurement", spark)
+truncateTable("telemetry.fact_measure", spark)
 
 //dimension tables
-spark.sql("truncate table telemetry.dim_location")
+truncateTable("telemetry.dim_location", spark)
 
-spark.sql("truncate table telemetry.dim_device")
+truncateTable("telemetry.dim_device", spark)
 
-spark.sql("truncate table telemetry.dim_date")
+truncateTable("telemetry.dim_date", spark)
+
+println("done...")

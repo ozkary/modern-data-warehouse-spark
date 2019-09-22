@@ -11,44 +11,106 @@ Oscar D. Garcia<h2></h2>
 
 <h2>Command Line:</h2>
 <ul>
+     <li>
+        Start a bash cli from the command line by typing:
+        bash
+    </li>
     <li> 
     Start the Thrift Server to enable connections from power bi
     /opt/spark/sbin/start-thriftserver.sh 
+
+    Note: Connect with Spark via HTTP http://localhost:10000/cliservice use ubunto username/pw
+    </li>   
+    <li><h2>Scala instructions</h2>
+    <ul>       
+        <li>
+            Note: the location of your project as this is where scala/python files are located
+        </li>
+        <li>
+        Start spark shell with the sql driver path (Scala)
+        /opt/spark/bin/spark-shell --driver-class-path /usr/share/java/sqljdbc42.jar           
+        </li>
+        <li>
+                Initialize the database
+                :load $path initialize_db.scala
+        </li>
+        <li>
+        Reset the tables
+        :load $path initialize_tables.scala
+        </li>
+        <li>
+        Initialize the tables
+        :load $path load_data.scala
+        </li>
+        <li>
+          Look at Spark Web UI and check the data with PowerBI
+        </li>
+
+        <li>
+        Load Dates
+        :load $path process_dim_date.scala
+        </li>
+        <li>
+        Load Devices
+        :load $path process_dim_device.scala
+        </li>
+        <li>
+        Load Location
+            :load $path process_dim_location.scala
+        </li>
+        <li>
+        Load fact entry measure
+        :load $path process_fact_measure.scala
+        </li>
+    
+        <li>
+        Load fact readings
+        :load $path process_fact_measurement.scala
+        </li>
+    </ul> 
+</li>
+<li>   <h2>Python Instructions</h2>
+    <ul>    
+    <li>
+    Start spark shell with the sql driver path (python)
+    /opt/spark/bin/pyspark
     </li>
     <li>
-    Start spark shell with the sql driver path
-    /opt/spark/bin/spark-shell --driver-class-path /usr/share/java/sqljdbc42.jar
+            Initialize the database
+            /opt/spark/bin/spark-submit /mnt/c/repos/dw-spark/spark/python/initialize_db.py
     </li>
     <li>
     Reset the tables
-    :load $path initialize_tables.scala
+    TODO
     </li>
     <li>
     Initialize the tables
-    :load $path load_data.scala
+    TODO
     </li>
 
     <li>
     Load Dates
-    :load $path process_dim_date.scala
+    TODO
     </li>
     <li>
     Load Devices
-    :load $path process_dim_device.scala
+    TODO
     </li>
     <li>
     Load Location
-        :load $path process_dim_location.scala
+    TODO
     </li>
     <li>
     Load fact entry measure
-    :load $path process_fact_measure.scala
+    TODO
     </li>
 
     <li>
     Load fact readings
-    :load $path process_fact_measurement.scala
+    TODO
     </li>
+</ul>
+</li>
 </ul>
 Command Line:
 
@@ -57,17 +119,27 @@ Bash
 /opt/spark/sbin/start-thriftserver.sh 
 <p></p>
 /opt/spark/bin/spark-shell --driver-class-path /usr/share/java/sqljdbc42.jar
+
 <p></p>
-:load /mnt/c/repos/dw-spark/spark/scala/initialize_tables.scala
+:load initialize_db.scala
+</p>
 <p></p>
-:load /mnt/c/repos/dw-spark/spark/scala/load_data.scala
+:load initialize_tables.scala
 <p></p>
-:load /mnt/c/repos/dw-spark/spark/scala/process_dim_date.scala
+
+:load load_data.scala
 <p></p>
-:load /mnt/c/repos/dw-spark/spark/scala/process_dim_device.scala
+:load process_dim_date.scala
 <p></p>
-:load /mnt/c/repos/dw-spark/spark/scala/process_dim_location.scala
+:load process_dim_device.scala
 <p></p>
-:load /mnt/c/repos/dw-spark/spark/scala/process_fact_measure.scala
+:load process_dim_location.scala
 <p></p>
-:load /mnt/c/repos/dw-spark/spark/scala/process_fact_measurement.scala
+:load process_fact_measure.scala
+<p></p>
+:load process_fact_measurement.scala
+
+
+
+./spark-submit /mnt/c/repos/dw-spark/spark/python/initialize_db.py
+./spark-submit /mnt/c/repos/dw-spark/spark/python/initialize_tables.py

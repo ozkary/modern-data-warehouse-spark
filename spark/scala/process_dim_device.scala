@@ -35,6 +35,7 @@ val target = "telemetry.dm.dim_device"
  //save to datalake table partition to 8 files defaults to 4
 val dsData2 = dsData.coalesce(8)
 
+//TODO check devices that already exists
 dsData2.write.mode("append").format("hive").saveAsTable(source)
 //spark.sql(s"select count(*) from ${source}").show
 

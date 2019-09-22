@@ -40,6 +40,7 @@ val query = {s"select abs(hash(device_id || cn || timestamp)) as measure_id,${fi
 val dfData = spark.sql(query).distinct
 val stackExp = "'humidity',humidity,'temperature',temp,'c02_level',c02_level,'battery_level',battery_level"
 
+//transpose from cols to rows
 val dsMeasurements = dfData.select($"measure_id",
 expr(s"stack(4,${stackExp}) as (name,value)")).as[fact_measurement]
 
@@ -49,7 +50,7 @@ dsData2.show
 val source = "telemetry.fact_measurement"
 val target = "telemetry.dm.fact_measurement"
 
-spark.sql(s"truncate table ${source}")
+//spark.sql(s"truncate table ${source}")
 dsData2.write.mode("append").format("hive").saveAsTable(source)
 
 //save to datamart in data warehouse

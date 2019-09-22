@@ -1,3 +1,7 @@
+import org.apache.spark.sql.DataFrame;
+
+
+//json models
 case class DeviceIoTData (
     battery_level: Long,
     c02_level: Long,
@@ -24,15 +28,22 @@ case class RoboIoTDataSmall (
     sound: Long,
     date: java.sql.Timestamp
 )
-import org.apache.spark.sql.DataFrame
 
-val dsDevices = spark.read.json("/mnt/c/repos/dw-spark/data/iot_devices.json").as[DeviceIoTData];
-val dsRobDev = spark.read.json("/mnt/c/repos/dw-spark/data/bot_devices.json").as[RoboIoTDataSmall];
+
+val path = "../../data/";
+println(path);
+
+
+val dsDevices = spark.read.json(path + "iot_devices.json").as[DeviceIoTData];
+val dsRobDev = spark.read.json(path + "bot_devices.json").as[RoboIoTDataSmall];
 dsDevices.show
 dsRobDev.show
 
 dsDevices.write.mode("append").format("hive").saveAsTable("telemetry.dl_device")
 dsRobDev.write.mode("append").format("hive").saveAsTable("telemetry.dl_bot")
+
+//show the tables names
+spark.catalog.listTables("telemetry").select("name").show()
 
 //other APIs to save in other formats
 //ds.write.mode("append").format("hive").saveAsTable("telemetry.dl_device")

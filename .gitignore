@@ -1,0 +1,10 @@
+#default hive database
+metastore_db
+
+
+# Logs
+logs
+*.log
+npm-debug.log*
+*.class
+*part-*

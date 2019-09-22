@@ -31,7 +31,12 @@ val tableName = "dl_device"
 
 //join with the dim tables to get the FKs
 // workout a better hashkey
-val query = {s"select abs(hash(device_id || cn || timestamp)) as measure_id,ip,device_id,dt.date_id, loc.location_id, from_unixtime(timestamp/1000) as measure_date ,CURRENT_TIMESTAMP as created  from telemetry.${tableName} dev inner join telemetry.dim_date dt on to_date(from_unixtime(dev.timestamp/1000)) = dt.date  inner join telemetry.dim_location loc on dev.cn = loc.location_name"}
+val query = {s"""select abs(hash(device_id || cn || timestamp)) as measure_id,ip,device_id,dt.date_id, loc.location_id, 
+    from_unixtime(timestamp/1000) as measure_date,
+    CURRENT_TIMESTAMP as created  
+from telemetry.${tableName} dev 
+inner join telemetry.dim_date dt on to_date(from_unixtime(dev.timestamp/1000)) = dt.date  
+inner join telemetry.dim_location loc on dev.cn = loc.location_name"""}
 
 val dfData = spark.sql(query).distinct.as[fact_measure]
 
@@ -42,7 +47,7 @@ val dsData2 = dfData.coalesce(8)
 val source = "telemetry.fact_measure"
 val target = "telemetry.dm.fact_measure"
 
-spark.sql(s"truncate table ${source}")
+#spark.sql(s"truncate table ${source}")
 
 dsData2.write.mode("append").format("hive").saveAsTable(source)
 

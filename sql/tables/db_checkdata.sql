@@ -12,21 +12,21 @@ ozkary.com
 use [telemetry]
 GO
 
-SELECT *  FROM [dm].[dim_date]
+SELECT *  FROM [dm].[dim_date](nolock)
 GO
 
 
-SELECT top 100 *  FROM [dm].[dim_device]
+SELECT top 100 *  FROM [dm].[dim_device](nolock)
 GO
 
-SELECT top 100 *  FROM [dm].[dim_location]
+SELECT top 100 *  FROM [dm].[dim_location](nolock)
 GO
 
 
-SELECT top 100 *  FROM  [dm].[fact_measure]
+SELECT top 100 *  FROM  [dm].[fact_measure](nolock)
 GO
 
-SELECT top 100 *  FROM [dm].[fact_measurement]
+SELECT top 100 *  FROM [dm].[fact_measurement](nolock)
 GO
 
 

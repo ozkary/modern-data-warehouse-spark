@@ -30,21 +30,24 @@ case class dim_date(
 val tableName = "dl_device"
 val dfDates = spark.sql(s"select to_date(from_unixtime(timestamp/1000)) as date, CURRENT_TIMESTAMP as created from telemetry.${tableName}").distinct
 val impDates = dfDates.withColumn("date_id",abs(hash(dfDates("date")))).as[dim_date]
-impDates.show
-
-val dimDates = spark.sql("select max(date) as date from telemetry.dim_date")
-dimDates.show
-
-var newDates = impDates.join(dimDates, impDates("date") > dimDates("date"),"left").select(impDates("date_id"),impDates("date"), impDates("created"))
-newDates.show
+var newDates = impDates
 
 val source = "telemetry.dim_date"
 val target = "telemetry.dm.dim_date"
+
+var exists = spark.catalog.tableExists(source)
+if (exists){
+
+  val dimDates = spark.sql("select max(date) as date from telemetry.dim_date")
+  dimDates.show
+  newDates = impDates.join(dimDates, impDates("date") > dimDates("date"),"left").select(impDates("date_id"),impDates("date"), impDates("created")).as[dim_date]          
+}
+newDates.show
 
 if (newDates.head(1).isEmpty == false){
   //save to datalake table
   newDates.write.mode("append").format("hive").saveAsTable(source)
     
-   //save to datamart in data warehouse
+  //save to datamart in data warehouse
   newDates.write.mode("append").jdbc(jdbcUrl, target, connectionProperties)
 }
