@@ -47,7 +47,7 @@ val dsData2 = dfData.coalesce(8)
 val source = "telemetry.fact_measure"
 val target = "telemetry.dm.fact_measure"
 
-#spark.sql(s"truncate table ${source}")
+//spark.sql(s"truncate table ${source}")
 
 dsData2.write.mode("append").format("hive").saveAsTable(source)
 

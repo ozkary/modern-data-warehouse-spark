@@ -28,7 +28,9 @@ case class dim_date(
 
 //step 1 - import dates data
 val tableName = "dl_device"
-val dfDates = spark.sql(s"select to_date(from_unixtime(timestamp/1000)) as date, CURRENT_TIMESTAMP as created from telemetry.${tableName}").distinct
+val dfDates = spark.sql(s"""select to_date(from_unixtime(timestamp/1000)) as date, 
+CURRENT_TIMESTAMP as created from telemetry.${tableName}""").distinct
+
 val impDates = dfDates.withColumn("date_id",abs(hash(dfDates("date")))).as[dim_date]
 var newDates = impDates
 
