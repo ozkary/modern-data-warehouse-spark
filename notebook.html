@@ -1,4 +1,4 @@
-<h1>Runbook for the Build a Modern Data Warehouse</h1>
+<h1>Runbook for Building a Modern Data Warehouse</h1>
 
 <h2>Code</h2>
 https://github.com/ozkary/modern-data-warehouse-spark
@@ -16,15 +16,17 @@ Oscar D. Garcia<h2></h2>
         bash
     </li>
     <li> 
-    Start the Thrift Server to enable connections from power bi
+    Start the Thrift Server to enable client connections (i.e. PowerBI)  via JDBC or ODBC
     /opt/spark/sbin/start-thriftserver.sh 
 
-    Note: Connect with Spark via HTTP http://localhost:10000/cliservice use ubunto username/pw
+    Note: Connect PowerBI with Spark via 
+    HTTP http://localhost:10000/cliservice use ubunto username/pw
     </li>   
     <li><h2>Scala instructions</h2>
     <ul>       
         <li>
-            Note: the location of your project as this is where scala/python files are located
+            Note: the location of your project as this is where scala/python files are located 
+            i.e. spark/scala
         </li>
         <li>
         Start spark shell with the sql driver path (Scala)
@@ -112,21 +114,21 @@ Oscar D. Garcia<h2></h2>
 </ul>
 </li>
 </ul>
-Command Line:
+Command Line: (from VSCode Terminal)
 
+<p></p>
 Bash
-
-/opt/spark/sbin/start-thriftserver.sh 
+<p></p>
+cd /spak/scala>
+<p></p>
+ /opt/spark/sbin/start-thriftserver.sh     
 <p></p>
 /opt/spark/bin/spark-shell --driver-class-path /usr/share/java/sqljdbc42.jar
-
 <p></p>
 :load initialize_db.scala
-</p>
 <p></p>
 :load initialize_tables.scala
 <p></p>
-
 :load load_data.scala
 <p></p>
 :load process_dim_date.scala

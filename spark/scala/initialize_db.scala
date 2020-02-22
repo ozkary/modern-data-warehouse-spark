@@ -17,3 +17,5 @@ spark.catalog.listTables().select("name").show()
 spark.sql("create database if not exists telemetry comment 'telemetry demo by ozkary'")
 spark.catalog.listDatabases().select("name").show()
 spark.catalog.listTables("telemetry").select("name").show()
+
+//spark.sql("DROP TABLE IF EXISTS telemetry.dl_bot2")

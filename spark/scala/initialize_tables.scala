@@ -20,7 +20,7 @@ def truncateTable(table: String, spark: SparkSession) : Boolean = {
    var exists = spark.catalog.tableExists(table)
 
    if (exists){
-        spark.sql(s"truncate table ${table}")        
+        spark.sql(s"truncate table ${table}")                    
     } else
     {
         println(s"${table} not found")    
