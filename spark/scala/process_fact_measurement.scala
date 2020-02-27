@@ -40,7 +40,7 @@ val query = {s"select abs(hash(device_id || cn || timestamp)) as measure_id,${fi
 val dfData = spark.sql(query).distinct
 val stackExp = "'humidity',humidity,'temperature',temp,'c02_level',c02_level,'battery_level',battery_level"
 
-//transpose from cols to rows
+//transpose from cols to rows using stack function
 val dsMeasurements = dfData.select($"measure_id",
 expr(s"stack(4,${stackExp}) as (name,value)")).as[fact_measurement]
 

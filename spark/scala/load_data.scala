@@ -51,4 +51,6 @@ spark.catalog.listTables("telemetry").select("name").show()
 //ds.write.mode("append").format("hive").saveAsTable("telemetry.dl_device")
 //ds.write.mode("append").json("/mnt/c/repos/dw-spark/data/")
 //ds.write.mode("append").csv("/mnt/c/repos/dw-spark/data/")
+
+// table definition
 spark.sql("desc formatted telemetry.dl_device").show()

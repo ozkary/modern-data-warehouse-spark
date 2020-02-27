@@ -16,7 +16,7 @@ Oscar D. Garcia<h2></h2>
         bash
     </li>
     <li> 
-    Start the Thrift Server to enable client connections (i.e. PowerBI)  via JDBC or ODBC
+    Start the Thrift Server to enable client connections (hive metastore)  via JDBC or ODBC
     /opt/spark/sbin/start-thriftserver.sh 
 
     Note: Connect PowerBI with Spark via 
@@ -78,8 +78,8 @@ Oscar D. Garcia<h2></h2>
     /opt/spark/bin/pyspark
     </li>
     <li>
-            Initialize the database
-            /opt/spark/bin/spark-submit /mnt/c/repos/dw-spark/spark/python/initialize_db.py
+    Initialize the database
+    /opt/spark/bin/spark-submit /mnt/c/repos/dw-spark/spark/python/initialize_db.py
     </li>
     <li>
     Reset the tables
@@ -124,12 +124,18 @@ cd /spak/scala>
  /opt/spark/sbin/start-thriftserver.sh     
 <p></p>
 /opt/spark/bin/spark-shell --driver-class-path /usr/share/java/sqljdbc42.jar
+
+<p></p>
+Initialize and data load_data
 <p></p>
 :load initialize_db.scala
 <p></p>
 :load initialize_tables.scala
 <p></p>
 :load load_data.scala
+<p></p>
+
+Tranformation Process
 <p></p>
 :load process_dim_date.scala
 <p></p>
@@ -141,7 +147,11 @@ cd /spak/scala>
 <p></p>
 :load process_fact_measurement.scala
 
+<p></p>
+Visualize Data
 
+<p></p>
+Python Commands
 
 ./spark-submit /mnt/c/repos/dw-spark/spark/python/initialize_db.py
 ./spark-submit /mnt/c/repos/dw-spark/spark/python/initialize_tables.py

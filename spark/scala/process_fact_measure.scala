@@ -42,6 +42,7 @@ val dfData = spark.sql(query).distinct.as[fact_measure]
 
 dfData.show
 
+// partition/nodes
 val dsData2 = dfData.coalesce(8)
 
 val source = "telemetry.fact_measure"
